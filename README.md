@@ -1,3 +1,5 @@
+<sub>**English** | [Deutsch](README.de.md)</sub>
+
 # privacy-filter-api
 
 Small FastAPI sidecar around [openai/privacy-filter](https://github.com/openai/privacy-filter) that exposes two endpoints for use from n8n (or any other HTTP client):

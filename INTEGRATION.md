@@ -1,3 +1,5 @@
+<sub>**English** | [Deutsch](INTEGRATION.de.md)</sub>
+
 # Integrating privacy-filter-api into n8n Workflows
 
 A drop-in pattern for redacting PII **before** an LLM call and rehydrating it **after**, so the model never sees personal data while the end user still gets a natural response.
