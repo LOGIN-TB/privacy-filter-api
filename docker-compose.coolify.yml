@@ -1,0 +1,38 @@
+# =============================================================================
+# privacy-filter-api  —  Coolify deployment
+# =============================================================================
+# Use with Coolify "Service" → "Docker Compose (Empty)" or as the compose file
+# of a Coolify "Application" linked to this Git repo.
+#
+# Coolify manages networking and the volume lifecycle automatically. Within the
+# same Coolify Project the service is reachable as  http://privacy-filter:9090
+# from any sibling container (e.g. n8n).
+#
+# For public HTTPS access via Coolify's built-in Traefik, uncomment the labels
+# block and set FQDN_PRIVACY_FILTER as a Coolify environment variable.
+# =============================================================================
+
+services:
+  privacy-filter:
+    container_name: privacy-filter
+    build:
+      context: .
+    restart: unless-stopped
+    volumes:
+      - opf_data:/data            # ~3 GB OPF model cache, survives restarts
+    expose:
+      - "9090"
+
+    # --- Optional: expose via Coolify's Traefik (HTTPS, automatic certs) ---
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.privacy-filter.rule=Host(`${FQDN_PRIVACY_FILTER}`)"
+    #   - "traefik.http.routers.privacy-filter.entrypoints=https"
+    #   - "traefik.http.routers.privacy-filter.tls.certresolver=letsencrypt"
+    #   - "traefik.http.services.privacy-filter.loadbalancer.server.port=9090"
+    # ⚠ The container has no built-in auth — if you expose it publicly,
+    #   add a Traefik basic-auth middleware or a bearer-token check in
+    #   app/main.py before doing so.
+
+volumes:
+  opf_data:

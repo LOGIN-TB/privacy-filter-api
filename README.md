@@ -83,6 +83,12 @@ Response:
 
 ---
 
+## Deploy via Coolify
+
+If your stack lives in [Coolify](https://coolify.io) instead of Portainer, see **[COOLIFY.md](COOLIFY.md)** — covers Application-from-Git, Service-with-pasted-Compose, network linkage to a sibling n8n, and optional public HTTPS via Coolify's Traefik.
+
+---
+
 ## n8n Integration
 
 For a step-by-step guide with node-level configuration, ASCII schematics of the typical patterns, and common pitfalls, see **[INTEGRATION.md](INTEGRATION.md)**.

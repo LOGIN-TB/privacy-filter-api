@@ -83,6 +83,12 @@ Antwort:
 
 ---
 
+## Deploy via Coolify
+
+Wenn dein Stack auf [Coolify](https://coolify.io) statt Portainer läuft, siehe **[COOLIFY.de.md](COOLIFY.de.md)** — beschreibt Application-aus-Git, Service-mit-eingefügtem-Compose, Netzwerk-Verbindung zu einer Geschwister-n8n und optional öffentlicher HTTPS-Zugang via Coolifys Traefik.
+
+---
+
 ## n8n-Integration
 
 Schritt-für-Schritt-Anleitung mit Node-Konfiguration, ASCII-Schemas der typischen Patterns und häufigen Stolperfallen: siehe **[INTEGRATION.de.md](INTEGRATION.de.md)**.
