@@ -1,0 +1,21 @@
+services:
+  privacy-filter:
+    build: .
+    container_name: privacy-filter
+    restart: unless-stopped
+    networks:
+      - n8n_net
+    volumes:
+      - opf_data:/data
+    # No ports published — only reachable inside the n8n_net network as
+    # http://privacy-filter:8080 from other containers (e.g. n8n).
+
+volumes:
+  opf_data:
+
+networks:
+  n8n_net:
+    # Set this to the existing Docker network your n8n container uses.
+    # Find it with: docker inspect <n8n-container> --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+    external: true
+    name: ${N8N_NETWORK:-n8n_default}
