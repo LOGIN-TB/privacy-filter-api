@@ -72,9 +72,9 @@ Response:
 
 4. **From n8n** (same Docker network), reach the service at:
    ```
-   http://privacy-filter:8080/redact
-   http://privacy-filter:8080/rehydrate
-   http://privacy-filter:8080/healthz
+   http://privacy-filter:9090/redact
+   http://privacy-filter:9090/rehydrate
+   http://privacy-filter:9090/healthz
    ```
 
    No port is published to the host — the service is only reachable inside the Docker network.
@@ -103,7 +103,7 @@ The LLM only ever sees redacted text. Add a system-prompt instruction telling th
 
 ```bash
 docker compose up --build
-curl -s -X POST http://localhost:8080/redact \
+curl -s -X POST http://localhost:9090/redact \
   -H 'content-type: application/json' \
   -d '{"text":"Alice was born on 1990-01-02."}'
 ```
@@ -111,7 +111,7 @@ curl -s -X POST http://localhost:8080/redact \
 To expose the port for local testing, add to `docker-compose.yml`:
 ```yaml
     ports:
-      - "8080:8080"
+      - "9090:9090"
 ```
 
 ---

@@ -12,7 +12,7 @@
 #   4. Deploy. First start ~1–2 min while the model downloads to opf_data.
 #
 # Verify from inside the n8n container:
-#   docker exec <n8n-container> curl -s http://privacy-filter:8080/healthz
+#   docker exec <n8n-container> curl -s http://privacy-filter:9090/healthz
 # Expected: {"ok":true}
 # =============================================================================
 
@@ -27,9 +27,9 @@ services:
     networks:
       - n8n_net
     # No `ports:` — service is reachable inside the network as
-    # http://privacy-filter:8080 only. Uncomment to expose to the host:
+    # http://privacy-filter:9090 only. Uncomment to expose to the host:
     # ports:
-    #   - "8080:8080"
+    #   - "9090:9090"
 
 volumes:
   opf_data:
