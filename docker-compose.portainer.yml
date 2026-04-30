@@ -1,0 +1,40 @@
+# =============================================================================
+# privacy-filter-api  —  paste-into-Portainer stack
+# =============================================================================
+# Usage:
+#   1. Portainer  →  Stacks  →  Add stack  →  Name: privacy-filter
+#   2. Build method: Web editor  →  paste this entire file
+#   3. Environment variables  →  add  N8N_NETWORK  with the name of the Docker
+#      network your n8n container is attached to. Find it on the host with:
+#         docker inspect <n8n-container> \
+#           --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+#      Common values: n8n_default, proxy, traefik
+#   4. Deploy. First start ~1–2 min while the model downloads to opf_data.
+#
+# Verify from inside the n8n container:
+#   docker exec <n8n-container> curl -s http://privacy-filter:8080/healthz
+# Expected: {"ok":true}
+# =============================================================================
+
+services:
+  privacy-filter:
+    container_name: privacy-filter
+    build:
+      context: https://github.com/LOGIN-TB/privacy-filter-api.git#main
+    restart: unless-stopped
+    volumes:
+      - opf_data:/data           # persists the ~3 GB OPF model across restarts
+    networks:
+      - n8n_net
+    # No `ports:` — service is reachable inside the network as
+    # http://privacy-filter:8080 only. Uncomment to expose to the host:
+    # ports:
+    #   - "8080:8080"
+
+volumes:
+  opf_data:
+
+networks:
+  n8n_net:
+    external: true
+    name: ${N8N_NETWORK:-n8n_default}
