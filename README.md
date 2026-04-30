@@ -81,18 +81,14 @@ Response:
 
 ---
 
-## n8n Integration Pattern
+## n8n Integration
 
-Insert two HTTP Request nodes around the LLM:
+For a step-by-step guide with node-level configuration, ASCII schematics of the typical patterns, and common pitfalls, see **[INTEGRATION.md](INTEGRATION.md)**.
+
+The short version — three nodes wrap the LLM:
 
 ```
-Webhook ──► HTTP POST /redact ──► [Set: store mapping] ──► If ──► AI Agent / LLM
-                                                                       │
-                                                                       ▼
-                                  HTTP POST /rehydrate (with stored mapping)
-                                                                       │
-                                                                       ▼
-                                                           Edit Fields → Respond
+Trigger ─► [Redact PII (HTTP)] ─► [Apply Redaction (Set)] ─► LLM ─► [Rehydrate (HTTP)] ─► Respond
 ```
 
 The LLM only ever sees redacted text. Add a system-prompt instruction telling the model to **preserve placeholders verbatim** (do not paraphrase `<PRIVATE_PERSON_1>` to "the person mentioned").
